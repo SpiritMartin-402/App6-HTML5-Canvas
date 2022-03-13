@@ -7,7 +7,7 @@ THIS CODE SHOULD NOT BE USED TO DIAGNOSE ANY KIND OF MEDICAL CONDITION.
  
 Authors in chronological order of contribution:
 Tim Riedel
-Author 2
+Spirit Martin
  
 Further Information:
 http://cns.utexas.edu/fri
@@ -17,14 +17,14 @@ Timothy Riedel
 triedel@utexas.edu
  
 Brief Description of Goal of Code:
-blah, blah, blah,
+To display a canvas on a screen, put a name, shape, and image on the canvas through the use of buttons and then a clear button.
  
 Known Issues:
-blah, blah, blah, blah
+none
 https://www.w3schools.com/w3css/default.asp
 https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-file
 -->
-	
+
    <head> 
       <title>App6---HTML5-Canvas</title>  
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,14 +35,45 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 
 
 <script>
+// This part of the code will put in a time that logs the last time modified to help see how long it takes for teh app to upload to the page. 
 var docMod = document.lastModified; // loads last modified time stamp into docMod variable
 alert("This file last modified " + docMod); // generates alert box with time stamp. If annoying, comment out this entire line.
 console.log("This file last modified " + docMod); // generates message in javaScript console (found in developers tools) with time stamp. 
+
+// the below code is a call of the canvas element and then asking the computer to write my name
+function myName(){
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+	ctx.font = "30px Arial";
+	ctx.fillText("Ethan", 10, 50);
+}
+// the below code drows a filled in rectangle on the canvas. Will test both filled and unfilled
+function draw_rectangle() {
+  	var rectangle_canvas = document.getElementById("myCanvas");
+  	var rectangle_context = rectangle_canvas.getContext("2d");
+  	rectangle_context.fillRect(50, 25, 150, 100);
+}
+// the below code should set a function to be called that produces an image
+function myImage(){
+	var b = document.getElementById("myCanvas");
+	var b_ctx = b.getContext("2d");
+	var bevo = new Image();
+	bevo.src = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F24%2F2020%2F12%2F03%2FGettyImages-1045641844-2000.jpg";
+	bevo.onload = function() {
+	b_ctx.drawImage(bevo, 100, 20, 100, 100);
+	};
+}
+//this function clears the canvas when I press the button
+function goAway() { 
+	var clear_canvas = document.getElementById("myCanvas");
+	var clear_context = clear_canvas.getContext("2d");
+	clear_context.clearRect(1, 1, 200, 100);
+}
 </script>
 
 
-
 <style>	
+/* this part of the code sets the margins and page setup */
 .body {
      margin: 0em;
 }
@@ -60,15 +91,42 @@ console.log("This file last modified " + docMod); // generates message in javaSc
     left: 0vw;
     z-index: 1;
 }
+img, object{
+    max-height:100%;
+	max-width:100%;
+}
+/* this part adds a border to the canvas so I can see it */
+canvas { border: 1px solid black; }
 </style>
 
 <body>
-<div id="header" class="w3-container w3-flat-carrot">
+<div id="header" class="w3-container w3-flat-carrot"> 
+	
 	<h1>App6---HTML5-Canvas</h1>
+	
 </div>
 	
 <div id="content" class="w3-container">
-	<p>Content goes here.</p>
+
+	<!-- this portion of code sets up the canvas to be displayed -->
+	<canvas id="myCanvas" width="200" height="100"></canvas>
+
+</div>
+
+<div id="buttons" class="w3-container">
+	<!-- this is a button that onece you click it it writes my name -->
+	<a  onclick="myName();" class="w3-btn w3-black"> Name</a>
+	
+	<!-- this button draws a filled in rectangle -->	
+	<a  onclick="draw_rectangle();" class="w3-btn w3-black"> Rectangle</a>
+	
+	<!-- this button puts Bevo on the screen -->	
+	<a  onclick="myImage();" class="w3-btn w3-black"> Bevo</a>
+	
+	<!-- this button clears the canvas -->	
+	<a  onclick="goAway();" class="w3-btn w3-black"> Clear</a>
+</div>
+	
 		
 	<p>The following code has been developed by students and/or researchers of the Freshman Research Initiative DIY Diagnostics Stream at The University of Texas at 		Austin.  This code is shared for demonstration purposes and should not be considered a product -- it is for entertainment purposes only. Any user of this code 			does so at their own risk. Members of the DIY Stream, FRI, and The University of Texas system are not liable for anything related to this code.</p>
  	
